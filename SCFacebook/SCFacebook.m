@@ -92,9 +92,10 @@ static SCFacebook * _scFacebook = nil;
 {
 	self = [super init];
 	if (self != nil){
+        _appId = [appId copy];
         
         // Initialize Facebook
-        _facebook = [[Facebook alloc] initWithAppId:appId andDelegate:self];
+        _facebook = [[Facebook alloc] initWithAppId:self.appId andDelegate:self];
         
         // Initialize user permissions
         _userPermissions = [[NSMutableDictionary alloc] initWithCapacity:1];
@@ -280,7 +281,7 @@ static SCFacebook * _scFacebook = nil;
 #pragma mark Public Methods Class
 
 +(void)loginCallBack:(SCFacebookCallback)callBack{
-	[[SCFacebook shared] _loginWithAppId:kAppId callBack:callBack];
+	[[SCFacebook shared] _loginWithAppId:[SCFacebook shared].appId callBack:callBack];
 }
 
 +(void)logoutCallBack:(SCFacebookCallback)callBack{
