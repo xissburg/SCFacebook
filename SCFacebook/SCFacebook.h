@@ -26,9 +26,6 @@
 #import <Foundation/Foundation.h>
 #import "Facebook.h"
 
-#warning Your application App ID/API Key Facebook
-#define kAppId @"140422319335414"
-
 #define OPEN_URL @"OPEN_URL"
 #define FQL_USER_STANDARD @"uid, name, email, birthday_date, about_me, pic"
 #define PERMISSIONS @"user_about_me",@"user_birthday",@"email", @"user_photos"
@@ -46,6 +43,7 @@ typedef enum {
 
 @interface SCFacebook : NSObject <FBSessionDelegate, FBRequestDelegate, FBDialogDelegate>{
     Facebook *_facebook;
+    NSString *_appId;
     NSArray *_permissions;
     NSMutableDictionary *_userPermissions;
     SCFacebookCallback _callback;
@@ -53,6 +51,7 @@ typedef enum {
 }
 
 @property (nonatomic, assign) FBPostType postType;
+@property (nonatomic, readonly) NSString *appId;
 
 +(SCFacebook *)shared;
 +(void)loginCallBack:(SCFacebookCallback)callBack;
@@ -64,5 +63,7 @@ typedef enum {
 +(void)feedPostWithMessageDialogCallBack:(SCFacebookCallback)callBack;
 +(void)feedPostWithPhoto:(UIImage*)_photo caption:(NSString*)_caption callBack:(SCFacebookCallback)callBack;
 +(void)myFeedCallBack:(SCFacebookCallback)callBack;
+
+- (SCFacebook *)initWithAppId:(NSString *)appId;
 
 @end

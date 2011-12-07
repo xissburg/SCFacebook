@@ -39,6 +39,7 @@ static SCFacebook * _scFacebook = nil;
 
 @synthesize callback = _callback;
 @synthesize postType;
+@synthesize appId=_appId;
 
 
 #pragma mark -
@@ -87,13 +88,13 @@ static SCFacebook * _scFacebook = nil;
     }    
 }
 
-- (SCFacebook *) init
+- (SCFacebook *)initWithAppId:(NSString *)appId
 {
 	self = [super init];
 	if (self != nil){
         
         // Initialize Facebook
-        _facebook = [[Facebook alloc] initWithAppId:kAppId andDelegate:self];
+        _facebook = [[Facebook alloc] initWithAppId:appId andDelegate:self];
         
         // Initialize user permissions
         _userPermissions = [[NSMutableDictionary alloc] initWithCapacity:1];
