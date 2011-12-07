@@ -27,12 +27,9 @@
 #import "SBJSON.h"
 
 
-static SCFacebook * _scFacebook = nil;
-
 @interface SCFacebook()
 @property (nonatomic, copy) SCFacebookCallback callback;
 @end
-
 
 
 @implementation SCFacebook
@@ -40,24 +37,6 @@ static SCFacebook * _scFacebook = nil;
 @synthesize callback = _callback;
 @synthesize postType;
 @synthesize appId=_appId;
-
-
-#pragma mark -
-#pragma mark Singleton
-
-+(SCFacebook *)shared {    
-    @synchronized (self){
-        
-        static dispatch_once_t pred;
-        
-        dispatch_once(&pred, ^{
-            _scFacebook = [[SCFacebook alloc] init];
-        });
-    }
-    
-    return _scFacebook;
-}
-
 
 
 #pragma mark -
@@ -278,46 +257,46 @@ static SCFacebook * _scFacebook = nil;
 
 
 #pragma mark - 
-#pragma mark Public Methods Class
+#pragma mark Public Methods
 
-+(void)loginCallBack:(SCFacebookCallback)callBack{
-	[[SCFacebook shared] _loginWithAppId:[SCFacebook shared].appId callBack:callBack];
+- (void)loginCallBack:(SCFacebookCallback)callBack{
+	[self _loginWithAppId:self.appId callBack:callBack];
 }
 
-+(void)logoutCallBack:(SCFacebookCallback)callBack{
-	[[SCFacebook shared] _logoutCallBack:callBack];
+- (void)logoutCallBack:(SCFacebookCallback)callBack{
+	[self _logoutCallBack:callBack];
 }
 
-+(void)getUserFQL:(NSString*)fql callBack:(SCFacebookCallback)callBack{
-	[[SCFacebook shared] _getUserFQL:fql callBack:callBack];
+- (void)getUserFQL:(NSString*)fql callBack:(SCFacebookCallback)callBack{
+	[self _getUserFQL:fql callBack:callBack];
 }
 
-+(void)getUserFriendsCallBack:(SCFacebookCallback)callBack{
-	[[SCFacebook shared] _getUserFriendsCallBack:callBack];
+- (void)getUserFriendsCallBack:(SCFacebookCallback)callBack{
+	[self _getUserFriendsCallBack:callBack];
 }
 
-+(void)feedPostWithLinkPath:(NSString*)_url caption:(NSString*)_caption callBack:(SCFacebookCallback)callBack{
-    [SCFacebook shared].postType = FBPostTypeLink;
-    [[SCFacebook shared] _feedPostWithLinkPath:_url caption:_caption message:nil photo:nil dialog:NO callBack:callBack];
+- (void)feedPostWithLinkPath:(NSString*)_url caption:(NSString*)_caption callBack:(SCFacebookCallback)callBack{
+    self.postType = FBPostTypeLink;
+    [self _feedPostWithLinkPath:_url caption:_caption message:nil photo:nil dialog:NO callBack:callBack];
 }
 
-+(void)feedPostWithMessage:(NSString*)_message callBack:(SCFacebookCallback)callBack{
-    [SCFacebook shared].postType = FBPostTypeStatus;
-    [[SCFacebook shared] _feedPostWithLinkPath:nil caption:nil message:_message photo:nil dialog:NO callBack:callBack];    
+- (void)feedPostWithMessage:(NSString*)_message callBack:(SCFacebookCallback)callBack{
+    self.postType = FBPostTypeStatus;
+    [self _feedPostWithLinkPath:nil caption:nil message:_message photo:nil dialog:NO callBack:callBack];    
 }
 
-+(void)feedPostWithMessageDialogCallBack:(SCFacebookCallback)callBack{
-    [SCFacebook shared].postType = FBPostTypeStatus;
-    [[SCFacebook shared] _feedPostWithLinkPath:nil caption:nil message:@"" photo:nil dialog:YES callBack:callBack];    
+- (void)feedPostWithMessageDialogCallBack:(SCFacebookCallback)callBack{
+    self.postType = FBPostTypeStatus;
+    [self _feedPostWithLinkPath:nil caption:nil message:@"" photo:nil dialog:YES callBack:callBack];    
 }
 
-+(void)feedPostWithPhoto:(UIImage*)_photo caption:(NSString*)_caption callBack:(SCFacebookCallback)callBack{
-    [SCFacebook shared].postType = FBPostTypePhoto;
-    [[SCFacebook shared] _feedPostWithLinkPath:nil caption:_caption message:nil photo:_photo dialog:NO callBack:callBack];
+- (void)feedPostWithPhoto:(UIImage*)_photo caption:(NSString*)_caption callBack:(SCFacebookCallback)callBack{
+    self.postType = FBPostTypePhoto;
+    [self _feedPostWithLinkPath:nil caption:_caption message:nil photo:_photo dialog:NO callBack:callBack];
 }
 
-+(void)myFeedCallBack:(SCFacebookCallback)callBack{
-    [[SCFacebook shared] _myFeedCallBack:callBack];
+- (void)myFeedCallBack:(SCFacebookCallback)callBack{
+    [self _myFeedCallBack:callBack];
 }
 
 #pragma mark - 

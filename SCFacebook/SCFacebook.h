@@ -53,17 +53,15 @@ typedef enum {
 @property (nonatomic, assign) FBPostType postType;
 @property (nonatomic, readonly) NSString *appId;
 
-+(SCFacebook *)shared;
-+(void)loginCallBack:(SCFacebookCallback)callBack;
-+(void)logoutCallBack:(SCFacebookCallback)callBack;
-+(void)getUserFQL:(NSString*)fql callBack:(SCFacebookCallback)callBack;
-+(void)getUserFriendsCallBack:(SCFacebookCallback)callBack;
-+(void)feedPostWithLinkPath:(NSString*)_url caption:(NSString*)_caption callBack:(SCFacebookCallback)callBack;
-+(void)feedPostWithMessage:(NSString*)_message callBack:(SCFacebookCallback)callBack;
-+(void)feedPostWithMessageDialogCallBack:(SCFacebookCallback)callBack;
-+(void)feedPostWithPhoto:(UIImage*)_photo caption:(NSString*)_caption callBack:(SCFacebookCallback)callBack;
-+(void)myFeedCallBack:(SCFacebookCallback)callBack;
-
 - (SCFacebook *)initWithAppId:(NSString *)appId;
+- (void)loginCallBack:(SCFacebookCallback)callBack;
+- (void)logoutCallBack:(SCFacebookCallback)callBack;
+- (void)getUserFQL:(NSString*)fql callBack:(SCFacebookCallback)callBack;
+- (void)getUserFriendsCallBack:(SCFacebookCallback)callBack;
+- (void)feedPostWithLinkPath:(NSString*)_url caption:(NSString*)_caption callBack:(SCFacebookCallback)callBack;
+- (void)feedPostWithMessage:(NSString*)_message callBack:(SCFacebookCallback)callBack;
+- (void)feedPostWithMessageDialogCallBack:(SCFacebookCallback)callBack;
+- (void)feedPostWithPhoto:(UIImage*)_photo caption:(NSString*)_caption callBack:(SCFacebookCallback)callBack;
+- (void)myFeedCallBack:(SCFacebookCallback)callBack;
 
 @end

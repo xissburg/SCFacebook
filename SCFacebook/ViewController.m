@@ -1,6 +1,6 @@
 //
 //  ViewController.m
-//  SCFacebook
+//  self.scFacebook
 //
 //  Created by Lucas Correa on 23/11/11.
 //  Copyright (c) 2011 Siriuscode Solutions. All rights reserved.
@@ -14,7 +14,17 @@
 
 #define RemoveNull(field) ([[result objectForKey:field] isKindOfClass:[NSNull class]]) ? @"" : [result objectForKey:field];
 
+
+@interface ViewController ()
+
+@property (nonatomic, retain) SCFacebook *scFacebook;
+
+@end
+
+
 @implementation ViewController
+
+@synthesize scFacebook;
 
 - (void)didReceiveMemoryWarning
 {
@@ -28,7 +38,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    self.title = @"SCFacebook";
+    self.title = @"self.scFacebook";
+    self.scFacebook = [[[SCFacebook alloc] initWithAppId:@"140422319335414"] autorelease];
     photoImageView.layer.borderColor = [UIColor darkGrayColor].CGColor;
     photoImageView.layer.borderWidth = 2;
     
@@ -46,6 +57,7 @@
     birthdayLabel = nil;
     [aboutTextView release];
     aboutTextView = nil;
+    self.self.scFacebook = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -83,6 +95,7 @@
     [emailLabel release];
     [birthdayLabel release];
     [aboutTextView release];
+    self.self.scFacebook = nil;
     [super dealloc];
 }
 
@@ -90,7 +103,7 @@
 -(void)getUserInfo{
     loadingView.hidden = NO;
     
-    [SCFacebook getUserFQL:FQL_USER_STANDARD callBack:^(BOOL success, id result) {
+    [self.self.scFacebook getUserFQL:FQL_USER_STANDARD callBack:^(BOOL success, id result) {
         if (success) {
             NSLog(@"%@", result);
             
@@ -117,7 +130,7 @@
     
     loadingView.hidden = NO;
     
-    [SCFacebook loginCallBack:^(BOOL success, id result) {
+    [self.scFacebook loginCallBack:^(BOOL success, id result) {
         loadingView.hidden = YES;
         if (success) {
             [self getUserInfo];
@@ -128,7 +141,7 @@
 
 - (IBAction)logout:(id)sender {
     
-    [SCFacebook logoutCallBack:^(BOOL success, id result) {
+    [self.scFacebook logoutCallBack:^(BOOL success, id result) {
         if (success) {
             nameLabel.text = @"Name";
             emailLabel.text = @"Email";
@@ -148,7 +161,7 @@
     
     loadingView.hidden = NO;
     
-    [SCFacebook getUserFriendsCallBack:^(BOOL success, id result) {
+    [self.scFacebook getUserFriendsCallBack:^(BOOL success, id result) {
         loadingView.hidden = YES;
         if (success) {
             
@@ -183,7 +196,7 @@
             //Link
 		case 1:{
             loadingView.hidden = NO;
-            [SCFacebook feedPostWithLinkPath:@"http://www.lucascorrea.com" caption:@"Portfolio" callBack:^(BOOL success, id result) {
+            [self.scFacebook feedPostWithLinkPath:@"http://www.lucascorrea.com" caption:@"Portfolio" callBack:^(BOOL success, id result) {
                 loadingView.hidden = YES;
                 Alert(@"Alert", result);            
             }];
@@ -193,7 +206,7 @@
             //Message
 		case 2:{
             loadingView.hidden = NO;
-            [SCFacebook feedPostWithMessage:@"This is message" callBack:^(BOOL success, id result) {
+            [self.scFacebook feedPostWithMessage:@"This is message" callBack:^(BOOL success, id result) {
                 loadingView.hidden = YES;
                 Alert(@"Alert", result);            
             }];
@@ -202,7 +215,7 @@
             //Message Dialog
 		case 3:{
             
-            [SCFacebook feedPostWithMessageDialogCallBack:^(BOOL success, id result) {
+            [self.scFacebook feedPostWithMessageDialogCallBack:^(BOOL success, id result) {
                 Alert(@"Alert", result);            
             }];
             break;
@@ -211,7 +224,7 @@
         case 4:{
             UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://www.lucascorrea.com/lucas_apple.png"]]];
             loadingView.hidden = NO;
-            [SCFacebook feedPostWithPhoto:image caption:@"This is message with photo" callBack:^(BOOL success, id result) {
+            [self.scFacebook feedPostWithPhoto:image caption:@"This is message with photo" callBack:^(BOOL success, id result) {
                 loadingView.hidden = YES;
                 Alert(@"Alert", result);            
             }];
