@@ -86,7 +86,7 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return interfaceOrientation == UIInterfaceOrientationPortrait;
+    return (interfaceOrientation == UIInterfaceOrientationPortrait) || (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown);
 }
 
 - (void)dealloc {
@@ -100,7 +100,9 @@
 }
 
 #pragma mark - Methods
--(void)getUserInfo{
+
+- (void)getUserInfo
+{
     loadingView.hidden = NO;
     
     [self.self.scFacebook getUserFQL:FQL_USER_STANDARD callBack:^(BOOL success, id result) {
@@ -116,9 +118,7 @@
             
             photoImageView.imageURL = [NSURL URLWithString:[result objectForKey:@"pic"]];
         }else{
-            
             loadingView.hidden = YES;
-            
             Alert(@"Alert", result);
         }
     }];
@@ -126,8 +126,9 @@
 
 
 #pragma mark - Button Action
-- (IBAction)login:(id)sender {
-    
+
+- (IBAction)login:(id)sender 
+{    
     loadingView.hidden = NO;
     
     [self.scFacebook loginCallBack:^(BOOL success, id result) {
@@ -139,9 +140,9 @@
     }];
 }
 
-- (IBAction)logout:(id)sender {
-    
-    [self.scFacebook logoutCallBack:^(BOOL success, id result) {
+- (IBAction)logout:(id)sender 
+{    
+    [SCFacebook logoutCallBack:^(BOOL success, id result) {
         if (success) {
             nameLabel.text = @"Name";
             emailLabel.text = @"Email";
@@ -153,12 +154,13 @@
     }];
 }
 
-- (IBAction)getUserInfo:(id)sender {
+- (IBAction)getUserInfo:(id)sender 
+{
     [self getUserInfo];
 }
 
-- (IBAction)getFriends:(id)sender {
-    
+- (IBAction)getFriends:(id)sender 
+{    
     loadingView.hidden = NO;
     
     [self.scFacebook getUserFriendsCallBack:^(BOOL success, id result) {
@@ -174,8 +176,8 @@
     }];
 }
 
-- (IBAction)publishYourWall:(id)sender {
-
+- (IBAction)publishYourWall:(id)sender 
+{
     UIActionSheet *sheet = [[UIActionSheet alloc]
                             initWithTitle:@"Option Publish"
                             delegate:self
@@ -187,8 +189,13 @@
 	[sheet release];
 }
 
+
+
+
 #pragma mark - UIActionSheetDelegate
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex 
+{
 	if (buttonIndex == actionSheet.destructiveButtonIndex) { return; }
     
     switch (buttonIndex) {

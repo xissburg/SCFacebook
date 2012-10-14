@@ -3,7 +3,7 @@
 //  SCFacebook
 //
 //  Created by Lucas Correa on 23/11/11.
-//  Copyright (c) 2011 Siriuscode Solutions. All rights reserved.
+//  Copyright (c) 2012 Siriuscode Solutions. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,7 @@
 
 #define OPEN_URL @"OPEN_URL"
 #define FQL_USER_STANDARD @"uid, name, email, birthday_date, about_me, pic"
-#define PERMISSIONS @"user_about_me",@"user_birthday",@"email", @"user_photos"
+#define PERMISSIONS @"user_about_me",@"user_birthday",@"email", @"user_photos", @"publish_stream"
 
 
 #define Alert(title,msg)  [[[[UIAlertView alloc] initWithTitle:title message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] autorelease] show];
@@ -53,15 +53,17 @@ typedef enum {
 @property (nonatomic, assign) FBPostType postType;
 @property (nonatomic, readonly) NSString *appId;
 
-- (SCFacebook *)initWithAppId:(NSString *)appId;
-- (void)loginCallBack:(SCFacebookCallback)callBack;
-- (void)logoutCallBack:(SCFacebookCallback)callBack;
-- (void)getUserFQL:(NSString*)fql callBack:(SCFacebookCallback)callBack;
-- (void)getUserFriendsCallBack:(SCFacebookCallback)callBack;
-- (void)feedPostWithLinkPath:(NSString*)_url caption:(NSString*)_caption callBack:(SCFacebookCallback)callBack;
-- (void)feedPostWithMessage:(NSString*)_message callBack:(SCFacebookCallback)callBack;
-- (void)feedPostWithMessageDialogCallBack:(SCFacebookCallback)callBack;
-- (void)feedPostWithPhoto:(UIImage*)_photo caption:(NSString*)_caption callBack:(SCFacebookCallback)callBack;
-- (void)myFeedCallBack:(SCFacebookCallback)callBack;
++ (void)initWithAppId:(NSString *)appId;
++ (BOOL)isSessionValid;
++ (void)loginCallBack:(SCFacebookCallback)callBack;
++ (void)logoutCallBack:(SCFacebookCallback)callBack;
++ (void)getUserFQL:(NSString*)fql callBack:(SCFacebookCallback)callBack;
++ (void)getUserFriendsCallBack:(SCFacebookCallback)callBack;
++ (void)feedPostWithLinkPath:(NSString*)_url caption:(NSString*)_caption callBack:(SCFacebookCallback)callBack;
++ (void)feedPostWithMessage:(NSString*)_message callBack:(SCFacebookCallback)callBack;
++ (void)feedPostWithMessageDialogCallBack:(SCFacebookCallback)callBack;
++ (void)feedPostWithPhoto:(UIImage*)_photo caption:(NSString*)_caption callBack:(SCFacebookCallback)callBack;
++ (void)myFeedCallBack:(SCFacebookCallback)callBack;
++ (void)inviteFriendsWithMessage:(NSString *)_message callBack:(SCFacebookCallback)callBack;
 
 @end
