@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 
 #import "SCFacebook.h"
-#import "SBJSON.h"
+#import "FBSBJSON.h"
 
 
 @interface SCFacebook()
