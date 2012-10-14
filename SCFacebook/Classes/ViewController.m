@@ -39,7 +39,6 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     self.title = @"self.scFacebook";
-    self.scFacebook = [[[SCFacebook alloc] initWithAppId:@"140422319335414"] autorelease];
     photoImageView.layer.borderColor = [UIColor darkGrayColor].CGColor;
     photoImageView.layer.borderWidth = 2;
     
@@ -105,7 +104,7 @@
 {
     loadingView.hidden = NO;
     
-    [self.self.scFacebook getUserFQL:FQL_USER_STANDARD callBack:^(BOOL success, id result) {
+    [SCFacebook getUserFQL:FQL_USER_STANDARD callBack:^(BOOL success, id result) {
         if (success) {
             NSLog(@"%@", result);
             
@@ -131,7 +130,7 @@
 {    
     loadingView.hidden = NO;
     
-    [self.scFacebook loginCallBack:^(BOOL success, id result) {
+    [SCFacebook loginCallBack:^(BOOL success, id result) {
         loadingView.hidden = YES;
         if (success) {
             [self getUserInfo];
@@ -163,7 +162,7 @@
 {    
     loadingView.hidden = NO;
     
-    [self.scFacebook getUserFriendsCallBack:^(BOOL success, id result) {
+    [SCFacebook getUserFriendsCallBack:^(BOOL success, id result) {
         loadingView.hidden = YES;
         if (success) {
             
@@ -203,7 +202,7 @@
             //Link
 		case 1:{
             loadingView.hidden = NO;
-            [self.scFacebook feedPostWithLinkPath:@"http://www.lucascorrea.com" caption:@"Portfolio" callBack:^(BOOL success, id result) {
+            [SCFacebook feedPostWithLinkPath:@"http://www.lucascorrea.com" caption:@"Portfolio" callBack:^(BOOL success, id result) {
                 loadingView.hidden = YES;
                 Alert(@"Alert", result);            
             }];
@@ -213,7 +212,7 @@
             //Message
 		case 2:{
             loadingView.hidden = NO;
-            [self.scFacebook feedPostWithMessage:@"This is message" callBack:^(BOOL success, id result) {
+            [SCFacebook feedPostWithMessage:@"This is message" callBack:^(BOOL success, id result) {
                 loadingView.hidden = YES;
                 Alert(@"Alert", result);            
             }];
@@ -222,7 +221,7 @@
             //Message Dialog
 		case 3:{
             
-            [self.scFacebook feedPostWithMessageDialogCallBack:^(BOOL success, id result) {
+            [SCFacebook feedPostWithMessageDialogCallBack:^(BOOL success, id result) {
                 Alert(@"Alert", result);            
             }];
             break;
@@ -231,7 +230,7 @@
         case 4:{
             UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://www.lucascorrea.com/lucas_apple.png"]]];
             loadingView.hidden = NO;
-            [self.scFacebook feedPostWithPhoto:image caption:@"This is message with photo" callBack:^(BOOL success, id result) {
+            [SCFacebook feedPostWithPhoto:image caption:@"This is message with photo" callBack:^(BOOL success, id result) {
                 loadingView.hidden = YES;
                 Alert(@"Alert", result);            
             }];

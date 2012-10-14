@@ -27,6 +27,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //Your application App ID/API Key Facebook
+    [SCFacebook initWithAppId:@"140422319335414"];
+    
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     
     // Override point for customization after application launch.
@@ -54,8 +57,7 @@
 	loadingView.hidden = YES;
     
     
-    //Your application App ID/API Key Facebook
-    [SCFacebook initWithAppId:@"140422319335414"];
+    
     
     return YES;
 }
